@@ -5,7 +5,7 @@ on:
 
 jobs:
   deploy_android:
-    - name: Deploy Android
+    name: Deploy Android
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
