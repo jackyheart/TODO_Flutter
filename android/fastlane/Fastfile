@@ -16,20 +16,17 @@
 default_platform(:android)
 
 platform :android do
-  desc "Deploy Google Play Closed Beta"
+  desc "Deploy to Google Play Closed Beta"
   lane :closed_beta do
-    gradle(task: "clean")
-    gradle(
-      task: "bundle",
-      build_type: 'Release')
     upload_to_play_store(
       track: 'Closed beta',
-      aab: '../build/app/outputs/bundle/release/app-release.aab',
+      #aab: '../build/app/outputs/bundle/release/app.aab',
+      aab: '../build/app/outputs/bundle/debug/app.aab',#TODO: update to release
       skip_upload_metadata: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
-      release_status: "draft",
-      version_code: 1.0.0   
+      release_status: 'draft',
+      version_code: 1
     )
   end
 end
