@@ -11,4 +11,8 @@ class DataProvider {
   void addTodoList(String todo) {
     _todoList.add(todo);
   }
+
+  void removeTodoItem(String todo) {
+    _todoList.remove(todo);
+  }
 }

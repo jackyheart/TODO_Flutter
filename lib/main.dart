@@ -23,7 +23,6 @@ class TodoWidget extends StatefulWidget {
 class _TodoState extends State<TodoWidget> {
   final _biggerFont = TextStyle(fontSize: 18.0);
   final _dataProvider = DataProvider();
-  final _saved = <String>{};
 
   @override
   Widget build(BuildContext context) {
@@ -39,34 +38,21 @@ class _TodoState extends State<TodoWidget> {
 
   Widget _buildList(List<String> data) {
     return ListView.builder(
-        padding: EdgeInsets.all(16.0),
-        itemCount: data.length,
-        itemBuilder: (context, i) {
-          return _buildRow(data[i]);
-        });
+      padding: EdgeInsets.all(16.0),
+      itemCount: data.length,
+      itemBuilder: (context, i) {
+        return _buildRow(data[i]);
+      },
+    );
   }
 
   Widget _buildRow(String todo) {
-    final alreadySaved = _saved.contains(todo);
-
     final listTile = ListTile(
       title: Text(
         todo,
         style: _biggerFont,
       ),
-      trailing: Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
-      ),
-      onTap: () {
-        setState(() {
-          if (alreadySaved) {
-            _saved.remove(todo);
-          } else {
-            _saved.add(todo);
-          }
-        });
-      },
+      onTap: () {},
     );
 
     return Dismissible(
@@ -76,7 +62,7 @@ class _TodoState extends State<TodoWidget> {
         key: UniqueKey(),
         onDismissed: (direction) {
           setState(() {
-            _saved.remove(todo);
+            _dataProvider.removeTodoItem(todo);
           });
         },
         child: listTile);
