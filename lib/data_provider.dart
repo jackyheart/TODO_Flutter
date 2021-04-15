@@ -1,10 +1,13 @@
 class DataProvider {
   final _todoList = <String>[];
 
-  List<String> getTodoList() {
-    for (int i = 0; i < 10; i++) {
-      _todoList.add(i.toString());
+  DataProvider() {
+    for (int i = 0; i < 3; i++) {
+      _todoList.add((i + 1).toString());
     }
+  }
+
+  List<String> getTodoList() {
     return _todoList;
   }
 

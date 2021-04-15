@@ -23,6 +23,12 @@ class TodoWidget extends StatefulWidget {
 class _TodoState extends State<TodoWidget> {
   final _biggerFont = TextStyle(fontSize: 18.0);
   final _dataProvider = DataProvider();
+  TextEditingController _textFieldController = TextEditingController();
+  String _inputText = "";
+
+  void _showInputDialog(BuildContext context) {
+    _displayTextInputDialog(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +39,12 @@ class _TodoState extends State<TodoWidget> {
         title: Text('To-do List'),
       ),
       body: _buildList(data),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showInputDialog(context);
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 
@@ -64,5 +76,41 @@ class _TodoState extends State<TodoWidget> {
           _dataProvider.removeTodoItem(todo);
         },
         child: listTile);
+  }
+
+  Future<void> _displayTextInputDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Add Item'),
+            content: TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Enter a To-Do item"),
+              onChanged: (val) {
+                _inputText = val;
+              },
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  _textFieldController.clear();
+                  Navigator.pop(context);
+                },
+              ),
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () {
+                  _dataProvider.addTodoList(_inputText);
+                  _textFieldController.clear();
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+            ],
+          );
+        });
   }
 }
