@@ -1,15 +1,7 @@
-name: Continuous Integration
-
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+name: Continuous Delivery
 
 jobs:
-  build_and_test:
+  deploy_android:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,8 +13,15 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v1
         with:
-          channel: 'dev'
+          channel: 'beta'
       - name: Install Flutter dependencies
         run: flutter pub get
       - name: Analyze files
         run: flutter analyze .
+      - name: Generate apk
+        run: flutter build apk --release
+      - name: Fastlane upload
+        uses: maierj/fastlane-action@v1.4.0
+        with:
+          lane: closed_beta
+          subdirectory: android

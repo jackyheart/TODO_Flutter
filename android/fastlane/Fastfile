@@ -17,7 +17,7 @@ default_platform(:android)
 
 platform :android do
   desc "Deploy Google Play Closed Beta"
-  lane :deploy do
+  lane :closed_beta do
     gradle(task: "clean")
     gradle(
       task: "bundle",
