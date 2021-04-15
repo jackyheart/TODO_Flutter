@@ -1,5 +1,17 @@
 name: Continuous Delivery
 
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'Mona the Octocat'
+      home:
+        description: 'location'
+        required: false
+        default: 'The Octoverse'
+
 jobs:
   deploy_android:
     runs-on: ubuntu-latest
