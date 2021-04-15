@@ -38,6 +38,10 @@
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
 
+# Ignore Android keys
+**/android/key.jks
+**/android/key.properties
+
 # iOS/XCode related
 **/ios/**/*.mode1v3
 **/ios/**/*.mode2v3
