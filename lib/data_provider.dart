@@ -2,9 +2,9 @@ class DataProvider {
   final _todoList = <String>[];
 
   List<String> getTodoList() {
-    _todoList.add("A");
-    _todoList.add("B");
-    _todoList.add("C");
+    for (int i = 0; i < 10; i++) {
+      _todoList.add(i.toString());
+    }
     return _todoList;
   }
 

@@ -61,9 +61,7 @@ class _TodoState extends State<TodoWidget> {
         ),
         key: UniqueKey(),
         onDismissed: (direction) {
-          setState(() {
-            _dataProvider.removeTodoItem(todo);
-          });
+          _dataProvider.removeTodoItem(todo);
         },
         child: listTile);
   }
