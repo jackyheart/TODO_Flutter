@@ -10,17 +10,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'To-do List',
       theme: ThemeData(primaryColor: Colors.white),
-      home: RandomWords(),
+      home: TodoWidget(),
     );
   }
 }
 
-class RandomWords extends StatefulWidget {
+class TodoWidget extends StatefulWidget {
   @override
-  _RandomWordsState createState() => _RandomWordsState();
+  _TodoState createState() => _TodoState();
 }
 
-class _RandomWordsState extends State<RandomWords> {
+class _TodoState extends State<TodoWidget> {
   final _biggerFont = TextStyle(fontSize: 18.0);
   final _dataProvider = DataProvider();
   final _saved = <String>{};
