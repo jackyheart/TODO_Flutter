@@ -1,12 +1,12 @@
-name: Continuous Delivery
+name: Continuous Delivery iOS
 
 on:
   workflow_dispatch
 
 jobs:
   deploy_android:
-    name: Deploy Android
-    runs-on: ubuntu-latest
+    name: Deploy iOS
+    runs-on: macOS-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,10 +24,10 @@ jobs:
         run: flutter pub get
       - name: Analyze files
         run: flutter analyze .
-      - name: Generate apk
-        run: flutter build apk --debug #TODO: update to release
+      - name: Build iOS
+        run: flutter build ios --release --no-codesign
       - name: Fastlane upload
         uses: maierj/fastlane-action@v1.4.0
         with:
-          lane: closed_beta
-          subdirectory: android
+          lane: test_flight
+          subdirectory: ios
