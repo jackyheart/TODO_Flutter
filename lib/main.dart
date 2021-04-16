@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'data_provider.dart';
+import 'firebase_source.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,8 +29,16 @@ class TodoWidget extends StatefulWidget {
 class _TodoState extends State<TodoWidget> {
   final _biggerFont = TextStyle(fontSize: 18.0);
   DataProvider _dataProvider = DataProvider();
+
   TextEditingController _textFieldController = TextEditingController();
   String _inputText = "";
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseSource fbSource = FirebaseSource();
+    _dataProvider = DataProvider.withDataSource(fbSource);
+  }
 
   void _showInputDialog(BuildContext context) {
     _displayTextInputDialog(context);
