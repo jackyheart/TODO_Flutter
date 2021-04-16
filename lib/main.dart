@@ -1,7 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'data_provider.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -22,7 +27,7 @@ class TodoWidget extends StatefulWidget {
 
 class _TodoState extends State<TodoWidget> {
   final _biggerFont = TextStyle(fontSize: 18.0);
-  final _dataProvider = DataProvider();
+  DataProvider _dataProvider = DataProvider();
   TextEditingController _textFieldController = TextEditingController();
   String _inputText = "";
 
