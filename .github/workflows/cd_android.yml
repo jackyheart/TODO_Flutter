@@ -22,8 +22,6 @@ jobs:
         run: flutter clean
       - name: Install Flutter dependencies
         run: flutter pub get
-      - name: Analyze files
-        run: flutter analyze .
       - name: Generate apk
         run: flutter build apk --debug #TODO: update to release
       - name: Fastlane upload
