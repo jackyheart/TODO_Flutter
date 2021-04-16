@@ -25,5 +25,3 @@ jobs:
           channel: 'dev'
       - name: Install Flutter dependencies
         run: flutter pub get
-      - name: Analyze files
-        run: flutter analyze .
