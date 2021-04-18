@@ -9,7 +9,7 @@ class FirebaseSource implements DataProtocol {
   @override
   Future<List<Todo>> getTodoList() async {
     List<Todo> resultList = <Todo>[];
-    DataSnapshot snapshot = await _dbRef.once();
+    DataSnapshot snapshot = await _dbRef.orderByChild('timestamp').once();
 
     Map<dynamic, dynamic> valueMap = snapshot.value;
     if (valueMap != null) {
