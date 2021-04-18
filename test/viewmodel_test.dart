@@ -10,6 +10,9 @@ class MockDataSource extends DataProtocol {
 
   Future<List<Todo>> getTodoList() {
     isGetTodoListCalled = true;
+
+    Future<List<Todo>> future = Future(() => <Todo>[]);
+    return future;
   }
 
   void addItem(String todo) {
