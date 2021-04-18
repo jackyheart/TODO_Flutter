@@ -9,7 +9,7 @@ class DataProvider {
     this._dataSource = dataSource;
   }
 
-  List<String> getTodoList() {
+  Future<List<String>> getTodoList() {
     return _dataSource.getTodoList();
   }
 

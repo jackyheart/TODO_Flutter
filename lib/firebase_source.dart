@@ -2,27 +2,28 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
 
 abstract class DataProtocol {
-  List<String> getTodoList();
+  Future<List<String>> getTodoList();
   void addItem(String todo);
   void removeItem(String todo);
 }
 
 class FirebaseSource implements DataProtocol {
-  final _databaseReference = FirebaseDatabase.instance.reference();
-  var _index = 0;
-
-  final _todoList = <String>[];
-
-  FirebaseSource() {
-    //init
-    for (int i = 0; i < 5; i++) {
-      _todoList.add((i + 1).toString());
-    }
-  }
+  final _dbRef = FirebaseDatabase.instance.reference();
 
   @override
-  List<String> getTodoList() {
-    return _todoList;
+  Future<List<String>> getTodoList() async {
+    List<String> list = <String>[];
+    DataSnapshot snapshot = await _dbRef.once();
+
+    Map<dynamic, dynamic> valueMap = snapshot.value;
+
+    var keys = valueMap.keys;
+    for (var key in keys) {
+      Map<dynamic, dynamic> item = valueMap[key];
+      list.add(item["task"]);
+    }
+
+    return list;
   }
 
   @override
@@ -30,17 +31,13 @@ class FirebaseSource implements DataProtocol {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(now);
 
-    //increment index
-    _index++;
-
     //update Firebase
-    _databaseReference
-        .child(_index.toString())
-        .set({'todo': todo, 'timestamp': formattedDate});
+    String idFromDate = DateFormat('yyyy-MM-dd-kk:mm:ss').format(now);
+    _dbRef.child(idFromDate).set({'task': todo, 'timestamp': formattedDate});
   }
 
   @override
   void removeItem(String todo) {
-    _todoList.remove(todo);
+    // _todoList.remove(todo);
   }
 }

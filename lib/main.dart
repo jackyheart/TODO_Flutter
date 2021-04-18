@@ -29,6 +29,7 @@ class TodoWidget extends StatefulWidget {
 class _TodoState extends State<TodoWidget> {
   final _biggerFont = TextStyle(fontSize: 18.0);
   DataProvider _dataProvider = DataProvider();
+  Future<List<String>> _todoList;
 
   TextEditingController _textFieldController = TextEditingController();
   String _inputText = "";
@@ -38,6 +39,7 @@ class _TodoState extends State<TodoWidget> {
     super.initState();
     FirebaseSource fbSource = FirebaseSource();
     _dataProvider = DataProvider.withDataSource(fbSource);
+    _todoList = _dataProvider.getTodoList();
   }
 
   void _showInputDialog(BuildContext context) {
@@ -46,13 +48,20 @@ class _TodoState extends State<TodoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final data = _dataProvider.getTodoList();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('To-do List'),
       ),
-      body: _buildList(data),
+      body: FutureBuilder<List<String>>(
+        future: _todoList,
+        builder: (context, snapshot) {
+          return snapshot.hasData
+              ? _buildList(snapshot.data)
+              : Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _showInputDialog(context);
