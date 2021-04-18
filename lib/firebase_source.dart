@@ -12,10 +12,12 @@ class FirebaseSource implements DataProtocol {
 
     Map<dynamic, dynamic> valueMap = snapshot.value;
 
-    var keys = valueMap.keys;
-    for (var key in keys) {
-      Map<dynamic, dynamic> item = valueMap[key];
-      list.add(item["task"]);
+    if (valueMap != null) {
+      var keys = valueMap.keys;
+      for (var key in keys) {
+        Map<dynamic, dynamic> item = valueMap[key];
+        list.add(item["task"]);
+      }
     }
 
     return list;
@@ -24,11 +26,13 @@ class FirebaseSource implements DataProtocol {
   @override
   void addItem(String todo) {
     DateTime now = DateTime.now();
+    int timestamp = now.millisecondsSinceEpoch;
     String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(now);
 
     //update Firebase
-    String idFromDate = DateFormat('yyyy-MM-dd-kk:mm:ss').format(now);
-    _dbRef.child(idFromDate).set({'task': todo, 'timestamp': formattedDate});
+    _dbRef
+        .child(timestamp.toString())
+        .set({'task': todo, 'datetime': formattedDate, 'timestamp': timestamp});
   }
 
   @override
