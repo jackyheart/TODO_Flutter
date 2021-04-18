@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'data_provider.dart';
 import 'firebase_source.dart';
+import 'todo.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +30,7 @@ class TodoWidget extends StatefulWidget {
 class _TodoState extends State<TodoWidget> {
   final _biggerFont = TextStyle(fontSize: 18.0);
   DataProvider _dataProvider = DataProvider();
-  Future<List<String>> _todoList;
+  Future<List<Todo>> _todoList;
 
   TextEditingController _textFieldController = TextEditingController();
   String _inputText = "";
@@ -52,7 +53,7 @@ class _TodoState extends State<TodoWidget> {
       appBar: AppBar(
         title: Text('To-do List'),
       ),
-      body: FutureBuilder<List<String>>(
+      body: FutureBuilder<List<Todo>>(
         future: _todoList,
         builder: (context, snapshot) {
           return snapshot.hasData
@@ -71,7 +72,7 @@ class _TodoState extends State<TodoWidget> {
     );
   }
 
-  Widget _buildList(List<String> data) {
+  Widget _buildList(List<Todo> data) {
     return ListView.builder(
       padding: EdgeInsets.all(16.0),
       itemCount: data.length,
@@ -81,10 +82,10 @@ class _TodoState extends State<TodoWidget> {
     );
   }
 
-  Widget _buildRow(String todo) {
+  Widget _buildRow(Todo todo) {
     final listTile = ListTile(
       title: Text(
-        todo,
+        todo.task,
         style: _biggerFont,
       ),
       onTap: () {},
@@ -96,7 +97,7 @@ class _TodoState extends State<TodoWidget> {
         ),
         key: UniqueKey(),
         onDismissed: (direction) {
-          _dataProvider.removeTodoItem(todo);
+          _dataProvider.removeTodoItem(todo.id);
         },
         child: listTile);
   }

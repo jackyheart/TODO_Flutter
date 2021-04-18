@@ -1,4 +1,5 @@
 import 'data_protocol.dart';
+import 'todo.dart';
 
 class DataProvider {
   DataProtocol _dataSource;
@@ -9,7 +10,7 @@ class DataProvider {
     this._dataSource = dataSource;
   }
 
-  Future<List<String>> getTodoList() {
+  Future<List<Todo>> getTodoList() {
     return _dataSource.getTodoList();
   }
 
@@ -17,7 +18,7 @@ class DataProvider {
     _dataSource.addItem(todo);
   }
 
-  void removeTodoItem(String todo) {
-    _dataSource.removeItem(todo);
+  void removeTodoItem(String id) {
+    _dataSource.removeItem(id);
   }
 }

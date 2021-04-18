@@ -1,26 +1,27 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
 import 'data_protocol.dart';
+import 'todo.dart';
 
 class FirebaseSource implements DataProtocol {
   final _dbRef = FirebaseDatabase.instance.reference();
 
   @override
-  Future<List<String>> getTodoList() async {
-    List<String> list = <String>[];
+  Future<List<Todo>> getTodoList() async {
+    List<Todo> resultList = <Todo>[];
     DataSnapshot snapshot = await _dbRef.once();
 
     Map<dynamic, dynamic> valueMap = snapshot.value;
-
     if (valueMap != null) {
       var keys = valueMap.keys;
       for (var key in keys) {
         Map<dynamic, dynamic> item = valueMap[key];
-        list.add(item["task"]);
+        Todo todo = Todo(key, item);
+        resultList.add(todo);
       }
     }
 
-    return list;
+    return resultList;
   }
 
   @override
@@ -36,7 +37,7 @@ class FirebaseSource implements DataProtocol {
   }
 
   @override
-  void removeItem(String todo) {
+  void removeItem(String id) {
     // _todoList.remove(todo);
   }
 }
