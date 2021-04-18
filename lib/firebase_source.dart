@@ -38,6 +38,6 @@ class FirebaseSource implements DataProtocol {
 
   @override
   void removeItem(String id) {
-    // _todoList.remove(todo);
+    _dbRef.child(id).remove();
   }
 }
