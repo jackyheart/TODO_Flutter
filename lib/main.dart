@@ -119,14 +119,14 @@ class _TodoState extends State<TodoWidget> {
               },
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text('Cancel'),
                 onPressed: () {
                   _textFieldController.clear();
                   Navigator.pop(context);
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text('OK'),
                 onPressed: () {
                   _dataProvider.addTodoList(_inputText);
