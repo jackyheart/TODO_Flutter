@@ -14,8 +14,8 @@ class DataProvider {
     return _dataSource.getTodoList();
   }
 
-  void addTodoList(String todo) {
-    _dataSource.addItem(todo);
+  void addTodoList(String task) {
+    _dataSource.addItem(task);
   }
 
   void removeTodoItem(String id) {

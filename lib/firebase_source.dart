@@ -25,7 +25,7 @@ class FirebaseSource implements DataProtocol {
   }
 
   @override
-  void addItem(String todo) {
+  void addItem(String task) {
     DateTime now = DateTime.now();
     int timestamp = now.millisecondsSinceEpoch;
     String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(now);
@@ -33,7 +33,7 @@ class FirebaseSource implements DataProtocol {
     //update Firebase
     _dbRef
         .child(timestamp.toString())
-        .set({'task': todo, 'datetime': formattedDate, 'timestamp': timestamp});
+        .set({'task': task, 'datetime': formattedDate, 'timestamp': timestamp});
   }
 
   @override
