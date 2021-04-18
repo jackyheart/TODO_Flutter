@@ -1,11 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
-
-abstract class DataProtocol {
-  Future<List<String>> getTodoList();
-  void addItem(String todo);
-  void removeItem(String todo);
-}
+import 'data_protocol.dart';
 
 class FirebaseSource implements DataProtocol {
   final _dbRef = FirebaseDatabase.instance.reference();

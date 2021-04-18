@@ -1,4 +1,4 @@
-import 'package:todo_app/firebase_source.dart';
+import 'data_protocol.dart';
 
 class DataProvider {
   DataProtocol _dataSource;
