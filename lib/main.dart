@@ -128,6 +128,7 @@ class _TodoState extends State<TodoWidget> {
                   _dataProvider.addTodoList(_inputText);
                   _textFieldController.clear();
                   setState(() {
+                    _todoList = _dataProvider.getTodoList();
                     Navigator.pop(context);
                   });
                 },
