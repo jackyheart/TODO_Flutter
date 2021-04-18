@@ -22,8 +22,12 @@ jobs:
         run: flutter clean
       - name: Install Flutter dependencies
         run: flutter pub get
+      - name: Analyze files
+        run: flutter analyze .
+      - name: Test app
+        run: flutter test
       - name: Generate apk
-        run: flutter build apk --debug #TODO: update to release
+        run: flutter build apk --release
       - name: Fastlane upload
         uses: maierj/fastlane-action@v1.4.0
         with:
